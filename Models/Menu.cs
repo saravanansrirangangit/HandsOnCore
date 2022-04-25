@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -19,8 +20,9 @@ namespace HandsOnCore.Models
 
         public string Description { get; set; } = "";
 
-        [DisplayName("Photo (url)")]
         public string ImageUrl { get; set; } = "";
+
+        public IFormFile Image { get; set; }
 
         public decimal Price { get; set; } = 0;
 
