@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 
 namespace HandsOnCore.Controllers
 {
@@ -14,7 +15,8 @@ namespace HandsOnCore.Controllers
     {
         private static DatabaseContext dbContext;
         public INotyfService notyf;
-        public Business.Restaurant restClass = new Business.Restaurant();
+        private static IWebHostEnvironment environment;
+        public Business.Restaurant restClass = new Business.Restaurant(environment);
 
         public RestaurantController(DatabaseContext _dbContext, INotyfService _notyf)
         {
