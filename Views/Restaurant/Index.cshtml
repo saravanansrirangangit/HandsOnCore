@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<head>
+    <link href="@Url.Content("~/wwwroot/css/custom.css")" rel="stylesheet" type="text/css" />
+</head>
+
+<form asp-controller="Restaurant" asp-action="CitySearch" method="get">
+    <div class="row">
+        <div class="col-6">
+            <h1 id="head1" style="margin-top: 9rem">Hungry?</h1>
+            <h2 id="head2" style="margin-top: 1rem">Find a Restaurant...</h2>
+            <div class="padding">
+                <input type="text" name="city" class="form-control citySearch" placeholder="Search for City..." width="50%" />
+                <input type="submit" class="btn btn-warning search" value="Search" />
+            </div>
+        </div>
+        <div class="col-6">
+            <img src="https://purewows3.imgix.net/images/articles/2020_06/indian-dinner-recipe-ideas_butter-chicken-meatballs.jpg?auto=format,compress&cs=strip" style="float:right; width:80%; border-radius: 10px">
+        </div>
+    </div>
+</form>
+
+<script>
+    var text = ['Hungry?', 'Want to grab some food?', 'Your search ends here.'];
+    var count = 0;
+    var element = document.getElementById("head1");
+    var inst = setInterval(function () {
+        element.innerHTML = text[count];
+        count++;
+        if (count == text.length) {
+            count = 0;
+        }
+    }, 2000);
+</script>

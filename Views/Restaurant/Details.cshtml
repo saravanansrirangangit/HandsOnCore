@@ -1,0 +1,133 @@
+﻿@model HandsOnCore.Models.Restaurant
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<hr />
+<dl class="row">
+    <div class="col-7">
+        <div class="d-flex">
+    <dt class="col-sm-6">
+        <label asp-for="Name"></label>
+    </dt>
+    <dd class="col-sm-6">
+        <input asp-for="Name" class="form-control" disabled />
+    </dd>
+    </div>
+    <div class="d-flex">
+    <dt class="col-sm-6">
+        <label asp-for="Area"></label>
+    </dt>
+    <dd class="col-sm-6">
+        <input asp-for="Area" class="form-control" disabled />
+    </dd>
+    </div>
+    <div class="d-flex">
+    <dt class="col-sm-6">
+        <label asp-for="City"></label>
+    </dt>
+    <dd class="col-sm-6">
+        <input asp-for="City" class="form-control" disabled />
+    </dd>
+    </div>
+    <div class="d-flex">
+    <dt class="col-sm-6">
+        <label asp-for="PinCode"></label>
+    </dt>
+    <dd class="col-sm-6">
+        <input asp-for="PinCode" class="form-control" disabled />
+    </dd>
+    </div>
+    <div class="d-flex">
+    <dt class="col-sm-6">
+        <label asp-for="PhoneNumber"></label>
+    </dt>
+    <dd class="col-sm-6">
+        <input asp-for="PhoneNumber" class="form-control" disabled />
+    </dd>
+    </div>
+    <div class="d-flex">
+    <dt class="col-sm-6">
+        <label asp-for="ContactPersonName"></label>
+    </dt>
+    <dd class="col-sm-6">
+        <input asp-for="ContactPersonName" class="form-control" disabled />
+    </dd>
+    </div>
+    <div class="d-flex">
+    <dt class="col-sm-6">
+        <label asp-for="MinDeliveryTime"></label>
+    </dt>
+    <dd class="col-sm-6">
+        <input asp-for="MinDeliveryTime" class="form-control" disabled />
+    </dd>
+    </div>
+    <div class="d-flex">
+    <dt class="col-sm-6">
+        <label asp-for="CostForTwo"></label>
+    </dt>
+    <dd class="col-sm-6 d-flex">
+        Rs: <input class="ml-2" asp-for="CostForTwo" class="form-control" disabled />
+    </dd>
+    </div>
+    </div>
+    <div class="col-5">
+        <img src="@Model.PhotoUrl" width="100%" />
+    </div>
+</dl>
+
+@*<hr />
+    @if (Model.Menus.Count > 0)
+    {
+        <h2>Menu</h2>
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>
+                        @Html.Label("Image")
+                    </th>
+                    <th>
+                        @Html.Label("Food Name")
+                    </th>
+                    <th>
+                        @Html.Label("Description")
+                    </th>
+                    <th>
+                        @Html.Label("Price")
+                    </th>
+                    <th>
+                        @Html.Label("Is Veg?")
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Menus)
+                {
+                    <tr class="text-center">
+                        <td width="30%">
+                            <img src="@Url.Content(item.ImageUrl)" width="20%" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.FoodName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.IsVeg)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }*@
+
+<div>
+    <a asp-action="CitySearch" asp-route-city="@Model.City">Back to List</a>
+</div>

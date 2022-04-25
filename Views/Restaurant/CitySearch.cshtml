@@ -1,0 +1,89 @@
+﻿@model IEnumerable<HandsOnCore.Models.Restaurant>
+
+@{
+    ViewData["Title"] = "City Search";
+}
+
+<form asp-controller="Restaurant" asp-action="RestaurantSearch" method="get">
+    <div class="d-flex mb-3">
+        <h1>Restaurants in @Model.First().City</h1>
+        <input type="text" name="restaurant" class="form-control rsearch" placeholder="Search for Restaurant..." />
+        <input type="submit" class="btn btn-warning rbtn-search" value="Search" />
+    </div>
+</form>
+
+<div class="d-flex">
+    @foreach (var item in Model)
+    {
+    <div class="card" style="width: 18rem; margin-right: 1em; border-radius: 10px;">
+        <img src="@item.PhotoUrl" alt="Restaurant image" height="50%" style="border-radius: 10px 10px 0px 0px; cursor: pointer"
+             asp-append-version="true" onclick="location.href ='@Url.Action("FoodItems", new { restaurantId = item.Id })'" />
+        <div class="card-body">
+            <h4>@item.Name</h4>
+            <p>@item.PhoneNumber</p>
+            <p>@item.Area - @item.City - @item.PinCode</p>
+            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning">Details</a>
+        </div>
+    </div>
+    }
+</div>
+
+@*<table class="table">
+        <thead>
+            <tr class="text-center">
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Area)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PinCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MinDeliveryTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CostForTwo)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="text-center">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Area)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PinCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MinDeliveryTime)
+                    </td>
+                    <td>
+                        Rs @Html.DisplayFor(modelItem => item.CostForTwo)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@

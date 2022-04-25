@@ -1,0 +1,29 @@
+﻿@model IEnumerable<HandsOnCore.Models.Menu>
+@{
+    ViewData["Title"] = "Food Items";
+}
+
+<h1>Food Items</h1>
+<div class="d-flex">
+    @foreach (var item in Model)
+    {
+        <div class="card" style="width: 18rem; height: 30rem; margin-right: 1em; border-radius: 10px;">
+            <img src="@item.ImageUrl" alt="Restaurant image" height="50%" style="border-radius: 10px 10px 0px 0px" class="card-img-bottom" />
+            <div class="card-body">
+                <h4>@item.FoodName</h4>
+                <p>@item.Description</p>
+                <p>Rs: @item.Price</p>
+                @{
+                    if (item.IsVeg)
+                    {
+                        <p>Vegeterian</p>
+                    }
+                    else
+                    {
+                        <p>Non-vegeterian</p>
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
