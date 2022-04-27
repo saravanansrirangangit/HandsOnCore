@@ -11,7 +11,7 @@ namespace HandsOnCore.Business
 {
     public class Restaurant
     {
-        IWebHostEnvironment environment;
+        private readonly IWebHostEnvironment environment;
         public Restaurant(IWebHostEnvironment env) 
         {
             environment = env;
@@ -72,9 +72,9 @@ namespace HandsOnCore.Business
                 {
                     if(obj.Image != null)
                     {
-                        string folder = "/images/restaurant";
-                        folder += Guid.NewGuid().ToString() + "_" + obj.Image.FileName;
-                        obj.PhotoUrl = folder;
+                        string folder = "images/restaurant/";
+                        folder += obj.Image.FileName;
+                        obj.PhotoUrl = "/" + folder;
                         string serverFolder = Path.Combine(environment.WebRootPath, folder);
                         obj.Image.CopyTo(new FileStream(serverFolder, FileMode.Create));
                     }
@@ -104,15 +104,15 @@ namespace HandsOnCore.Business
                     {
                         obj.Menus.ForEach(item =>
                         {
-                            if(!String.IsNullOrEmpty(item.FoodName) && !String.IsNullOrEmpty(item.Description) && !String.IsNullOrEmpty(item.ImageUrl))
+                            if(!String.IsNullOrEmpty(item.FoodName) && !String.IsNullOrEmpty(item.Description) && item.Image != null)
                             {
-                                if (obj.Image != null)
+                                if (item.Image != null)
                                 {
-                                    string folder = "/images/menu";
-                                    folder += Guid.NewGuid().ToString() + "_" + item.Image.FileName;
-                                    item.ImageUrl = folder;
+                                    string folder = "images/menu/";
+                                    folder += item.Image.FileName;
+                                    item.ImageUrl = "/" + folder;
                                     string serverFolder = Path.Combine(environment.WebRootPath, folder);
-                                    obj.Image.CopyTo(new FileStream(serverFolder, FileMode.Create));
+                                    item.Image.CopyTo(new FileStream(serverFolder, FileMode.Create));
                                 }
 
                                 var restId = dbContext.Restaurant.FirstOrDefault(y => y.Id == data.Entity.Id).Id;

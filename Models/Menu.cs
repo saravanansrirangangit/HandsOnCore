@@ -22,6 +22,7 @@ namespace HandsOnCore.Models
 
         public string ImageUrl { get; set; } = "";
 
+        [NotMapped]
         public IFormFile Image { get; set; }
 
         public decimal Price { get; set; } = 0;

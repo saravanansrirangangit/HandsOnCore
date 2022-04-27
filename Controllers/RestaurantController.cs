@@ -18,10 +18,11 @@ namespace HandsOnCore.Controllers
         private static IWebHostEnvironment environment;
         public Business.Restaurant restClass = new Business.Restaurant(environment);
 
-        public RestaurantController(DatabaseContext _dbContext, INotyfService _notyf)
+        public RestaurantController(DatabaseContext _dbContext, INotyfService _notyf, IWebHostEnvironment _environment)
         {
             dbContext = _dbContext;
             notyf = _notyf;
+            environment = _environment;
         }
 
         [HttpGet]
@@ -56,6 +57,22 @@ namespace HandsOnCore.Controllers
         {
             var result = restClass.FoodItems(restaurantId);
             return View(result);
+        }
+
+        [HttpGet]
+        public IActionResult FoodItemSearch(string foodItem, int restaurantId)
+        {
+            if (!String.IsNullOrEmpty(foodItem))
+            {
+                var restaurantLst = dbContext.Menu.Where(m => m.RestaurantId == restaurantId).ToList();
+                var result = restaurantLst.Where(z => z.FoodName.ToLower().Contains(foodItem.ToLower())).ToList();
+                return View("FoodItems", result);
+            }
+            else
+            {
+                notyf.Error(foodItem + " is not present");
+                return View("FoodItems");
+            }
         }
 
         [HttpGet]

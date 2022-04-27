@@ -2,31 +2,17 @@
 
 @{
     ViewData["Title"] = "Add Restaurant";
-    var count = 0;
 }
-
-<script type="text/javascript">
-    $("$addBtn").click(function () { ++count;})
-        @*$("#submitBtn").click(function () {
-            $.ajax({
-                type: 'POST',
-                url: 'Restaurant/Create',
-                data: @Model,
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json'
-            })
-        })*@
-</script>
 
 <h1>Add Restaurant</h1>
 
 <hr />
-<form asp-action="Create" asp-controller="Restaurant">
+<form asp-controller="Restaurant" asp-action="Create" enctype="multipart/form-data" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row">
         <div class="form-group col-4">
             <label asp-for="Name" class="control-label required"></label>
-            <input asp-for="Name" class="form-control" id="name" />
+            <input asp-for="Name" class="form-control" id="restaurantName" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="form-group col-4">
@@ -43,24 +29,24 @@
     <div class="row">
         <div class="form-group col-4">
             <label asp-for="PinCode" class="control-label required"></label>
-            <input asp-for="PinCode" class="form-control" type="number" id="pincode" />
+            <input type="number" asp-for="PinCode" class="form-control" id="pinCode" />
             <span asp-validation-for="PinCode" class="text-danger"></span>
         </div>
         <div class="form-group col-4">
             <label asp-for="PhoneNumber" class="control-label required"></label>
-            <input asp-for="PhoneNumber" class="form-control" type="number" id="phonenumber" />
+            <input type="number" asp-for="PhoneNumber" class="form-control" id="phoneNumber" />
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
         <div class="form-group col-4">
             <label asp-for="ContactPersonName" class="control-label"></label>
-            <input asp-for="ContactPersonName" class="form-control" id="contactname" />
+            <input asp-for="ContactPersonName" class="form-control" id="contactName" />
             <span asp-validation-for="ContactPersonName" class="text-danger"></span>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-4">
             <label asp-for="MinDeliveryTime" class="control-label"></label>
-            <input asp-for="MinDeliveryTime" class="form-control" id="deliverytime" placeholder="HH:mm" />
+            <input asp-for="MinDeliveryTime" class="form-control" id="deliveryTime" placeholder="HH:mm" />
             <span asp-validation-for="MinDeliveryTime" class="text-danger"></span>
         </div>
         <div class="form-group col-4">
@@ -70,122 +56,63 @@
         </div>
         <div class="form-group col-4">
             <label asp-for="Image" class="control-label required"></label>
-            <input asp-for="Image" id="photourl" type="file" id="image" name="image" />
+            <input type="file" asp-for="Image" id="image" />
             <span asp-validation-for="Image" class="text-danger"></span>
         </div>
         @*<div class="form-group col-4">
-            <label asp-for="PhotoUrl" class="control-label required"></label>
-            <input asp-for="PhotoUrl" class="form-control" id="photourl" />
-            <span asp-validation-for="PhotoUrl" class="text-danger"></span>
-        </div>*@
+                <label asp-for="PhotoUrl" class="control-label required"></label>
+                <input asp-for="PhotoUrl" class="form-control" id="photourl" />
+                <span asp-validation-for="PhotoUrl" class="text-danger"></span>
+            </div>*@
     </div>
 
-    <div id="menu">
-        <hr />
-        <h2>Menu</h2>
-        <hr />
+    <hr />
+    <h2>Menu</h2>
+    <hr />
         <div class="row" id="menuDiv">
             <div class="form-group col-2">
-                <label asp-for="Menus[count].FoodName" class="control-label"></label>
+                <label asp-for="Menus.First().FoodName" class="control-label"></label>
             </div>
             <div class="form-group col-2">
-                <label asp-for="Menus[count].Description" class="control-label"></label>
+                <label asp-for="Menus.First().Description" class="control-label"></label>
+            </div>
+            <div class="form-group col-3">
+                <label asp-for="Menus.First().Image" class="control-label"></label>
             </div>
             <div class="form-group col-2">
-                <label asp-for="Menus[count].ImageUrl" class="control-label"></label>
+                <label asp-for="Menus.First().Price" class="control-label"></label>
             </div>
             <div class="form-group col-2">
-                <label asp-for="Menus[count].Price" class="control-label"></label>
-            </div>
-            <div class="form-group col-2">
-                <label asp-for="Menus[count].IsVeg" class="control-label"></label><br />
+                <label asp-for="Menus.First().IsVeg" class="control-label"></label><br />
             </div>
         </div>
-        <div class="row">
-            <div class="form-group col-2">
-                <input asp-for="Menus[0].FoodName" class="form-control" id="foodname" />
-            </div>
-            <div class="form-group col-2">
-                <input asp-for="Menus[0].Description" class="form-control" id="foodname" />
-            </div>
-            <div class="form-group col-2">
-                <input asp-for="Menus[0].ImageUrl" class="form-control" id="foodname" />
-            </div>
-            <div class="form-group col-2">
-                <input asp-for="Menus[0].Price" class="form-control" id="foodname" />
-            </div>
-            <div class="form-group col-2">
-                <input asp-for="Menus[0].IsVeg"  id="foodname" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-2">
-                <input asp-for="Menus[1].FoodName" class="form-control" id="foodname" />
-            </div>
-            <div class="form-group col-2">
-                <input asp-for="Menus[1].Description" class="form-control" id="foodname" />
-            </div>
-            <div class="form-group col-2">
-                <input asp-for="Menus[1].ImageUrl" class="form-control" id="foodname" />
-            </div>
-            <div class="form-group col-2">
-                <input asp-for="Menus[1].Price" class="form-control" id="foodname" />
-            </div>
-            <div class="form-group col-2">
-                <input asp-for="Menus[1].IsVeg" id="foodname" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-2">
-                <input asp-for="Menus[2].FoodName" class="form-control" id="foodname" />
-            </div>
-            <div class="form-group col-2">
-                <input asp-for="Menus[2].Description" class="form-control" id="foodname" />
-            </div>
-            <div class="form-group col-2">
-                <input asp-for="Menus[2].ImageUrl" class="form-control" id="foodname" />
-            </div>
-            <div class="form-group col-2">
-                <input asp-for="Menus[2].Price" class="form-control" id="foodname" />
-            </div>
-            <div class="form-group col-2">
-                <input asp-for="Menus[2].IsVeg" id="foodname" />
-            </div>
-        </div>
+        @for (int i = 0; i < 2; i++)
+            {
+                <div class="row">
+                    <div class="form-group col-2">
+                        <input asp-for="Menus[i].FoodName" class="form-control" id="foodname" />
+                    </div>
+                    <div class="form-group col-2">
+                        <input asp-for="Menus[i].Description" class="form-control" id="description" />
+                    </div>
+                    <div class="form-group col-3">
+                        <input type="file" asp-for="Menus[i].Image" id="image" />
+                    </div>
+                    <div class="form-group col-2">
+                        <input asp-for="Menus[i].Price" type="number" class="form-control" id="price" />
+                    </div>
+                    <div class="form-group col-2">
+                        <input asp-for="Menus[i].IsVeg" id="isVeg" />
+                    </div>
+                </div>
+            }
 
-        @*<hr />
-        <h2>Menu</h2>
-        <hr />
-        <table id="tblMenu" class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Image(URL)</th>
-                    <th>Price</th>
-                    <th>Is Veg?</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for(int i=0; i<Model.Menus.Count(); i++)
-                {
-                <tr>
-                    <td><input type="text" id="foodName" value="@Model.Menus[i].FoodName" class="form-control" /></td>
-                    <td><input type="text" id="description" value="@Model.Menus[i].Description" class="form-control" /></td>
-                    <td><input type="text" id="imgUrl" value="@Model.Menus[i].ImageUrl" class="form-control" /></td>
-                    <td><input type="text" id="price" value="@Model.Menus[i].Price" class="form-control" /></td>
-                    <td><input type="checkbox" id="isVeg" value="@Model.Menus[i].IsVeg" class="form-control" /></td>
-                </tr>
-                }
-            </tbody>
-        </table>*@
-
-        <div class="form-group" id="btngrp">
-            <input type="reset" id="clearBtn" value="Clear" class="btn btn-warning search" />
-            <input type="button" id="submitBtn" onclick="submit()" value="Create" class="btn btn-warning search" />
-            <input type="button" onclick="addData()" id="addBtn" class="btn btn-warning search" value="Add Menu" />
-            <input type="button" onclick="removeData()" id="removeBtn" class="btn btn-warning search" value="Remove Menu" />
-        </div>
+    <div class="form-group" id="btngrp">
+        <input type="reset" id="clearBtn" value="Clear" class="btn btn-warning search" />
+        <input type="submit" id="submitBtn" onclick="sendData()" value="Create" class="btn btn-warning search" />
+        <input type="button" onclick="addData()" id="addBtn" class="btn btn-warning search addBtn" value="Add Menu" />
+        <input type="button" onclick="removeData()" id="removeBtn" class="btn btn-warning search" value="Remove Menu" />
+    </div>
 
 </form>
 
