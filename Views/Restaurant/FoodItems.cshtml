@@ -3,7 +3,15 @@
     ViewData["Title"] = "Food Items";
 }
 
-<h1>Food Items</h1>
+<form asp-controller="Restaurant" asp-action="FoodItemSearch" asp-route-restaurantId="restaurantId" method="get">
+    <div class="d-flex mb-3">
+        <h1>Food Items</h1>
+        <input type="hidden" value="@Model.FirstOrDefault().RestaurantId" name="restaurantId" />
+        <input type="text" name="foodItem" class="form-control rsearch" placeholder="Search for food items..." />
+        <input type="submit" class="btn btn-warning rbtn-search" value="Search" />
+    </div>
+</form>
+
 <div class="d-flex">
     @foreach (var item in Model)
     {

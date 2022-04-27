@@ -1,7 +1,9 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using HandsOnCore.Models;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +11,11 @@ namespace HandsOnCore.Business
 {
     public class Restaurant
     {
-        public Restaurant() { }
+        private readonly IWebHostEnvironment environment;
+        public Restaurant(IWebHostEnvironment env) 
+        {
+            environment = env;
+        }
 
         public List<Models.Restaurant> CitySearch(string city)
         {
@@ -64,6 +70,15 @@ namespace HandsOnCore.Business
             {
                 try
                 {
+                    if(obj.Image != null)
+                    {
+                        string folder = "images/restaurant/";
+                        folder += obj.Image.FileName;
+                        obj.PhotoUrl = "/" + folder;
+                        string serverFolder = Path.Combine(environment.WebRootPath, folder);
+                        obj.Image.CopyTo(new FileStream(serverFolder, FileMode.Create));
+                    }
+
                     var check = dbContext.Restaurant.FirstOrDefault(r => r.Name == obj.Name && r.Area == obj.Area);
                     if (check != null)
                     {
@@ -89,8 +104,17 @@ namespace HandsOnCore.Business
                     {
                         obj.Menus.ForEach(item =>
                         {
-                            if(!String.IsNullOrEmpty(item.FoodName) && !String.IsNullOrEmpty(item.Description) && !String.IsNullOrEmpty(item.ImageUrl))
+                            if(!String.IsNullOrEmpty(item.FoodName) && !String.IsNullOrEmpty(item.Description) && item.Image != null)
                             {
+                                if (item.Image != null)
+                                {
+                                    string folder = "images/menu/";
+                                    folder += item.Image.FileName;
+                                    item.ImageUrl = "/" + folder;
+                                    string serverFolder = Path.Combine(environment.WebRootPath, folder);
+                                    item.Image.CopyTo(new FileStream(serverFolder, FileMode.Create));
+                                }
+
                                 var restId = dbContext.Restaurant.FirstOrDefault(y => y.Id == data.Entity.Id).Id;
 
                                 Menu menu = new Menu();

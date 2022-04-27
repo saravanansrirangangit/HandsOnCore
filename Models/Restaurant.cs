@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -47,9 +49,10 @@ namespace HandsOnCore.Models
         [DisplayName("Cost for two")]
         public string CostForTwo { get; set; } = "";
 
-        [Required]
-        [DisplayName("Photo")]
         public string PhotoUrl { get; set; }
+
+        [NotMapped]
+        public IFormFile Image { get; set; }
 
         public List<Menu> Menus { get; set; }
     }
