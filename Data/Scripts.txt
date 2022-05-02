@@ -1,0 +1,111 @@
+﻿USE [TestDatabase]
+GO
+
+/****** Object:  Table [dbo].[Menu]    Script Date: 02-05-2022 13:03:50 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Menu](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RestaurantId] [int] NOT NULL,
+	[FoodName] [nvarchar](50) NULL,
+	[Description] [nvarchar](100) NULL,
+	[ImageUrl] [nvarchar](500) NULL,
+	[Price] [decimal](18, 0) NULL,
+	[IsVeg] [bit] NULL,
+ CONSTRAINT [PK_Menu] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+----------------------------------------------------------------
+
+USE [TestDatabase]
+GO
+
+INSERT INTO [dbo].[Menu]
+           ([RestaurantId]
+           ,[FoodName]
+           ,[Description]
+           ,[ImageUrl]
+           ,[Price]
+           ,[IsVeg])
+     VALUES
+           (<RestaurantId, int,>
+           ,<FoodName, nvarchar(50),>
+           ,<Description, nvarchar(100),>
+           ,<ImageUrl, nvarchar(500),>
+           ,<Price, decimal(18,0),>
+           ,<IsVeg, bit,>)
+GO
+
+----------------------------------------------------------------
+
+USE [TestDatabase]
+GO
+
+/****** Object:  Table [dbo].[Restaurant]    Script Date: 02-05-2022 13:13:59 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Restaurant](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](50) NULL,
+	[Area] [nvarchar](100) NULL,
+	[City] [nvarchar](50) NULL,
+	[PinCode] [nvarchar](50) NULL,
+	[PhoneNumber] [nvarchar](50) NULL,
+	[ContactPersonName] [nvarchar](50) NULL,
+	[MinDeliveryTime] [nvarchar](20) NULL,
+	[CostForTwo] [nvarchar](20) NULL,
+	[PhotoUrl] [nvarchar](500) NULL,
+ CONSTRAINT [PK_Restaurant] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Restaurant]  WITH CHECK ADD  CONSTRAINT [FK_Restaurant_Menu] FOREIGN KEY([Id])
+REFERENCES [dbo].[Menu] ([Id])
+GO
+
+ALTER TABLE [dbo].[Restaurant] CHECK CONSTRAINT [FK_Restaurant_Menu]
+GO
+
+----------------------------------------------------------------
+
+USE [TestDatabase]
+GO
+
+INSERT INTO [dbo].[Restaurant]
+           ([Name]
+           ,[Area]
+           ,[City]
+           ,[PinCode]
+           ,[PhoneNumber]
+           ,[ContactPersonName]
+           ,[MinDeliveryTime]
+           ,[CostForTwo]
+           ,[PhotoUrl])
+     VALUES
+           (<Name, nvarchar(50),>
+           ,<Area, nvarchar(100),>
+           ,<City, nvarchar(50),>
+           ,<PinCode, nvarchar(50),>
+           ,<PhoneNumber, nvarchar(50),>
+           ,<ContactPersonName, nvarchar(50),>
+           ,<MinDeliveryTime, nvarchar(20),>
+           ,<CostForTwo, nvarchar(20),>
+           ,<PhotoUrl, nvarchar(500),>)
+GO
+
+----------------------------------------------------------------
