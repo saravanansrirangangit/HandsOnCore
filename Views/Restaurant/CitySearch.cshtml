@@ -7,13 +7,13 @@
 @{
     if (Model.Count() > 0)
     {
-        <form asp-controller="Restaurant" asp-action="RestaurantSearch" method="get">
-            <div class="d-flex mb-3">
-                <h1>Restaurants in @Model.First().City</h1>
-                <input type="text" name="restaurant" class="form-control rsearch" placeholder="Search for Restaurant..." />
-                <input type="submit" class="btn btn-warning rbtn-search" value="Search" />
-            </div>
-        </form>
+    <form asp-controller="Restaurant" asp-action="RestaurantSearch" method="get">
+        <div class="d-flex mb-3">
+            <h1>Restaurants in @Model.First().City</h1>
+            <input type="text" name="restaurant" class="form-control rsearch" placeholder="Search for Restaurant..." />
+            <input type="submit" class="btn btn-warning rbtn-search" value="Search" />
+        </div>
+    </form>
     }
 }
 
@@ -23,21 +23,21 @@
         {
             foreach (var item in Model)
             {
-                <div class="card" style="width: 18rem; margin-right: 1em; border-radius: 10px;">
-                    <img src="@item.PhotoUrl" alt="Restaurant image" height="50%" style="border-radius: 10px 10px 0px 0px; cursor: pointer"
-                         asp-append-version="true" onclick="location.href ='@Url.Action("FoodItems", new { restaurantId = @item.Id })'" />
-                    <div class="card-body">
-                        <h4>@item.Name</h4>
-                        <p>@item.PhoneNumber</p>
-                        <p>@item.Area - item.City - item.PinCode</p>
-                        <a asp-action="Details" asp-route-id="item.Id" class="btn btn-warning">Details</a>
-                    </div>
-                </div>
+        <div class="card" style="width: 18rem; margin-right: 1em; border-radius: 10px;">
+            <img src="@item.PhotoUrl" alt="Restaurant image" height="50%" style="border-radius: 10px 10px 0px 0px; cursor: pointer"
+                 asp-append-version="true" onclick="location.href ='@Url.Action("FoodItems", new { restaurantId = @item.Id })'" />
+            <div class="card-body">
+                <h4>@item.Name</h4>
+                <p>@item.PhoneNumber</p>
+                <p>@item.Area - item.City - item.PinCode</p>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning">Details</a>
+            </div>
+        </div>
             }
         }
         else
         {
-            <h1 style="margin-left: 22rem; margin-top: 13rem">Opps! No data found...</h1>
+        <h1 style="margin-left: 22rem; margin-top: 13rem">Opps! No data found...</h1>
         }
     }
 

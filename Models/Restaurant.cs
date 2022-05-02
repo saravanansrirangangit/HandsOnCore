@@ -49,7 +49,7 @@ namespace HandsOnCore.Models
         [DisplayName("Cost for two")]
         public string CostForTwo { get; set; } = "";
 
-        public string PhotoUrl { get; set; }
+        public string PhotoUrl { get; set; } = "";
 
         [NotMapped]
         public IFormFile Image { get; set; }
